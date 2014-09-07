@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+%= javascript '/scripts/jquery.min.js'
+%= javascript '/scripts/bootstrap.min.js'
+
+%= stylesheet '/styles/bootstrap.min.css'
+%= stylesheet '/styles/bootstrap-theme.min.css'
+
+</head>
+
+<body>
+
+%= content
+
+</body>
+</html>
