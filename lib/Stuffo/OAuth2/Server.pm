@@ -37,6 +37,8 @@ sub startup {
 	# --- Routes
 	$self->routes()->get( '/' )
 		->to( controller => 'Controllers::Default', action => 'index' );
+
+	my $admin = $self->routes()->any( '/admin' );
 }
 
 1;
