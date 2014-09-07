@@ -15,13 +15,16 @@ my $builder = Module::Build->new(
 
 		# NOTE: Keep this list sorted!
 		requires => {
+			'File::ShareDir' => undef,
 			'Mojolicious' => undef,
+			'Mojolicious::Plugin::Mongodb' => undef,
 			'Moose' => undef,
+			'MooseX::AbstractFactory' => undef,
 			'MooseX::AbstractMethod' => undef,
-			'MooseX::AsbtractFactory' => undef,
 			'MooseX::ClassAttribute' => undef,
 			'MooseX::Storage' => undef,
 			'String::CamelCase' => undef,
+			'Test::MockObject' => undef,
 		},
 	);
 
