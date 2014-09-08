@@ -1,3 +1,5 @@
 % layout 'admin';
 
-<h1>Welcome</h1>
+<div class="container">
+	<div ng-view></div>
+</div>

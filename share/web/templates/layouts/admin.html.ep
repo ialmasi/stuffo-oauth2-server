@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="stuffo.oauth2.server">
 <head>
+
+%= stylesheet '/styles/bootstrap.min.css'
+%= stylesheet '/styles/bootstrap-theme.min.css'
 
 %= javascript '/scripts/jquery.min.js'
 %= javascript '/scripts/bootstrap.min.js'
 
-%= stylesheet '/styles/bootstrap.min.css'
-%= stylesheet '/styles/bootstrap-theme.min.css'
+%= javascript '/scripts/angular.min.js'
+%= javascript '/scripts/angular-route.min.js'
+%= javascript '/scripts/angular-resource.min.js'
+
+%= javascript '/modules/app.js'
+%= javascript '/modules/clients/clients.js'
 
 </head>
 
