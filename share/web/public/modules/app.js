@@ -7,13 +7,20 @@ var app = angular.module( 'stuffo.oauth2.server',
 	);
 
 app.config( function( $routeProvider ) {
-			$routeProvider.when( '/', 
+			$routeProvider.when( '/clients',
 					{
-						templateUrl : 'modules/clients/list.html',
+						templateUrl : '/modules/clients/list.html',
 						controller : 'ClientsListController'
 					} 
 				);
 
-			$routeProvider.otherwise( { redirectTo : '/' } );
+			$routeProvider.when( '/clients/new',
+					{
+						templateUrl: '/modules/clients/new.html',
+						controller: 'ClientsNewController'
+					}
+				);
+
+			$routeProvider.otherwise( { redirectTo : '/clients' } );
 		}
 	);

@@ -2,6 +2,8 @@
 <html ng-app="stuffo.oauth2.server">
 <head>
 
+<title>OAuth2 Server</title>
+
 %= stylesheet '/styles/bootstrap.min.css'
 %= stylesheet '/styles/bootstrap-theme.min.css'
 
@@ -18,8 +20,40 @@
 </head>
 
 <body>
+	<nav class="nav navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="#" class="navbar-brand">OAuth2 Server</a>
+			</div>
 
-%= content
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Ana</a></li>
+				<li><a href="#">Are</a></li>
+				<li><a href="#">Mere</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">&nbsp;</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="list-group">
+					<a href="#" class="list-group-item">Clients</a>
+					<a href="#" class="list-group-item">Second</a>
+					<a href="#" class="list-group-item">Third</a>
+					<a href="#" class="list-group-item">First</a>
+				</div>
+			</div>
+
+			<div class="col-lg-8">
+				%= content	
+			</div>
+		</div
+	</div>
 
 </body>
 </html>

@@ -1,1 +1,46 @@
-<h1>Clients</h1>
+<h2>Manage clients</h2>
+
+<hr/>
+
+<div class="row">
+	<div class="col-lg-12">
+		<a href="#/clients/new" class="btn btn-default">Add new client</a>
+	</div>
+</div>
+
+<br/>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default" ng-repeat="client in clients">
+			<div class="panel-heading">
+				<strong>{{client.name}}</strong>
+
+				<div class="btn-group btn-group-sm pull-right">
+					<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></a>
+					<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></a>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				<dl class="dl-horizontal">
+					<dt>Client ID</dt>
+					<dd>{{client.id}}</dd>
+
+					<dt>Client secret</dt>
+					<dd>{{client.secret}}</dd>
+
+					<dt>Website URL</dt>
+					<dd>{{client.url}}</dd>
+
+					<dt>Redirect URI</dt>
+					<dd>{{client.redirect_uri}}</dd>
+				</dl>
+			</div>
+
+			<div class="panel-footer">
+				<p>{{client.description}}</p>
+			</div>
+		</div>
+	</div>
+</div>

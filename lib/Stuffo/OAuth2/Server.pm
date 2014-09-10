@@ -15,7 +15,7 @@ sub startup {
 	my $self = shift();
 
 	# --- General configuration
-	$self->home()->parse( sprintf( '%s/web', File::ShareDir::dist_dir( 'Stuffo-OAuthr2-Server' ) ) );
+	$self->home()->parse( sprintf( '%s/web', File::ShareDir::dist_dir( 'Stuffo-OAuth2-Server' ) ) );
 
 	$self->static()->paths()->[0] = $self->home()->rel_dir( 'public' );
 	$self->renderer()->paths()->[0] = $self->home()->rel_dir( 'templates' );
@@ -34,11 +34,29 @@ sub startup {
 			}
 		);
 
-	# --- Routes
-	$self->routes()->get( '/' )
+	# --- Admin Routes
+	my $admin = $self->routes()->any( '/admin' );
+
+	$admin->get( '/' )
 		->to( controller => 'Controllers::Default', action => 'index' );
 
-	my $admin = $self->routes()->any( '/admin' );
+	# -- API routes
+	my $api = $self->routes()->any( '/api' );
+
+	$api->get( '/clients' )
+		->to( controller => 'Controllers::API::Clients', action => 'list' );
+
+	$api->get( '/clients/:id' )
+		->to( controller => 'Controllers::API::Clients', action => 'show' );
+
+	$api->post( '/clients' )
+		->to( controller => 'Controllers::API::Clients', action => 'create' );
+
+	$api->put( '/clients/:id' )
+		->to( controller => 'Controllers::API::Clients', action => 'update' );
+
+	$api->delete( '/clients/:id' )
+		->to( controller => 'Controllers::API::Clients', action => 'delete' );
 }
 
 1;
