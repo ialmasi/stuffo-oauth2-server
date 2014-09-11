@@ -4,36 +4,5 @@
 <hr/>
 
 <form role="form" ng-submit="registerClient()">
-	<div class="form-group">
-		<label class="control-label">Aplication Name</label>
-		<input type="text" class="form-control" ng-model="client.name">
-
-		<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
-	</div>
-
-	<div class="form-group">
-		<label class="control-label">Website URL</label>
-		<input type="url" class="form-control" ng-model="client.url">
-
-		<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
-	</div>
-
-	<div class="form-group">
-		<label class="control-label">Description</label>
-		<textarea class="form-control" rows="3" ng-model="client.description"></textarea>
-
-		<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
-	</div>
-
-	<div class="form-group">
-		<label class="control-label">Redirect URI</label>
-		<input type="url" class="form-control" ng-model="client.redirect_uri">
-
-		<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
-	</div>
-
-	<div class="form-group pull-right">
-		<button type="submit" class="btn btn-default">Register</button>
-		<button type="button" class="btn btn-default">Cancel</button>
-	</div>	
+	<div ng-include="'/modules/clients/_form.html'"></div>
 </form>

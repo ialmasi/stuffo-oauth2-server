@@ -34,6 +34,24 @@ sub startup {
 			}
 		);
 
+	# --- Authentication
+	my $authentication = $self->routes()->any( '/' );
+
+	$authentication->get( '/' )
+		->to( controller => 'Controllers::Authentication', action => 'index' );
+
+	$authentication->post( '/login' )
+		->to( controller => 'Controllers::Authentication', action => 'login' );
+
+	# --- OAuth Routes
+	my $oauth = $self->routes()->any( '/oauth' );
+	
+	$oauth->get( '/authorize' )
+		->to( controller => 'Controllers::OAuth', action => 'authorize' );
+
+	$oauth->get( '/access_token' )
+		->to( controller => 'Controllers::OAuth', action => 'access_token' );
+
 	# --- Admin Routes
 	my $admin = $self->routes()->any( '/admin' );
 

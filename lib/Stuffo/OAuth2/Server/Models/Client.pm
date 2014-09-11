@@ -4,13 +4,23 @@ use Moose;
 
 extends 'Stuffo::OAuth2::Server::Model';
 
-has 'uid' => (
+use UUID::Random;
+
+has 'id' => (
+		is => 'ro',
+		isa => 'Str',
+		default => sub {
+			return UUID::Random::generate();
+		}
+	);
+
+has 'name' => (
 		is => 'ro',
 		isa => 'Str',
 		required => 1,
 	);
 
-has 'name' => (
+has 'url' => (
 		is => 'ro',
 		isa => 'Str',
 		required => 1,
@@ -31,7 +41,9 @@ has 'redirect_uri' => (
 has 'secret' => (
 		is => 'ro',
 		isa => 'Str',
-		required => 1,
+		default => sub {
+			return UUID::Random::generate();
+		}
 	);
 
 __PACKAGE__->meta()->make_immutable();

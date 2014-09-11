@@ -10,14 +10,21 @@ app.config( function( $routeProvider ) {
 			$routeProvider.when( '/clients',
 					{
 						templateUrl : '/modules/clients/list.html',
-						controller : 'ClientsListController'
+						controller : 'ClientListController'
 					} 
 				);
 
 			$routeProvider.when( '/clients/new',
 					{
 						templateUrl: '/modules/clients/new.html',
-						controller: 'ClientsNewController'
+						controller: 'ClientCreateController'
+					}
+				);
+
+			$routeProvider.when( '/clients/edit/:id',
+					{
+						templateUrl: '/modules/clients/edit.html',
+						controller: 'ClientUpdateController'
 					}
 				);
 

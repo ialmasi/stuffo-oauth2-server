@@ -25,6 +25,7 @@ my $builder = Module::Build->new(
 			'MooseX::Storage' => undef,
 			'String::CamelCase' => undef,
 			'Test::MockObject' => undef,
+			'UUID::Random' => undef,
 		},
 	);
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title></title>
+
+%= stylesheet '/styles/bootstrap.min.css'
+%= stylesheet '/styles/bootstrap-theme.min.css'
+
+%= javascript '/scripts/jquery.min.js'
+%= javascript '/scripts/bootstrap.min.js'
+
+</head>
+
+<body>
+	<div class="container">
+		%= content
+	</div>
+</body>
+</html>

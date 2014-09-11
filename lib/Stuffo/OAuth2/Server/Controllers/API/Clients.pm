@@ -2,6 +2,8 @@ package Stuffo::OAuth2::Server::Controllers::API::Clients;
 
 use Mojo::Base 'Mojolicious::Controller';
 
+use Stuffo::OAuth2::Server::ModelFactory;
+
 sub list {
 	my $self = shift();
 
@@ -16,7 +18,7 @@ sub show {
 	my $self = shift();
 
 	my $client = $self->model( 'oauth2.clients' )
-		->find_one( { _id => $self->param( 'id' ) } );
+		->find_one( { id => $self->param( 'id' ) } );
 
 	return ( defined( $client ) ) ?
 		$self->render( json => $client ) :
@@ -26,14 +28,27 @@ sub show {
 sub create {
 	my $self = shift();
 
+	my $params = $self->req()->json();
+	my $client = Stuffo::OAuth2::Server::ModelFactory->create( 'client',
+			{
+				map { $_ => $params->{ $_ } } 
+				grep { defined( $params->{ $_ } ) } qw( name url description redirect_uri )
+			}
+		);
+
 	my $id = $self->model( 'oauth2.clients' )
-		->insert( $self->req()->json() );
+		->insert( $client->pack() );
 
 	return $self->render( json => { id => $id } );
 }
 
 sub update {
 	my $self = shift();
+
+	my $client = $self->model( 'oauth2.clients' )
+		->find_one( { id => $self->param( 'id' ) } );
+
+	
 
 	return $self->render( json => undef );
 }
@@ -42,7 +57,7 @@ sub delete {
 	my $self = shift();
 
 	$self->model( 'oauth2.clients' )
-		->remove( { _id => $self->param( 'id' ) }, { just_one => 1 } );
+		->remove( { id => $self->param( 'id' ) }, { just_one => 1 } );
 
 	return $self->render( json => {} );
 }
