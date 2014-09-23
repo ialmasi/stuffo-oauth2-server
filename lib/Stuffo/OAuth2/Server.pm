@@ -37,44 +37,31 @@ sub startup {
 	# --- Authentication
 	my $authentication = $self->routes()->any( '/' );
 
-	$authentication->get( '/' )
-		->to( controller => 'Controllers::Authentication', action => 'index' );
-
-	$authentication->post( '/login' )
-		->to( controller => 'Controllers::Authentication', action => 'login' );
+	$authentication->get( '/' )->to( 'Controllers::Authentication#index' );
+	$authentication->post( '/login' )->to( 'Controllers::Authentication#login' );
+	$authentication->get( '/logout' )->to( 'Controllers::Authentication#logout' );
 
 	# --- OAuth Routes
 	my $oauth = $self->routes()->any( '/oauth' );
 	
-	$oauth->get( '/authorize' )
-		->to( controller => 'Controllers::OAuth', action => 'authorize' );
+	$oauth->bridge( '/authorize' )->to( 'Controllers::Authentication#check' )
+		->get( '/' )->to( 'Controllers::Authorization#authorize' );
 
-	$oauth->get( '/access_token' )
-		->to( controller => 'Controllers::OAuth', action => 'access_token' );
+	$oauth->post( '/token' )->to( 'Controllers::Authorization#token' );
 
 	# --- Admin Routes
 	my $admin = $self->routes()->any( '/admin' );
 
-	$admin->get( '/' )
-		->to( controller => 'Controllers::Default', action => 'index' );
+	$admin->get( '/' )->to( 'Controllers::Admin#index' );
 
 	# -- API routes
 	my $api = $self->routes()->any( '/api' );
 
-	$api->get( '/clients' )
-		->to( controller => 'Controllers::API::Clients', action => 'list' );
-
-	$api->get( '/clients/:id' )
-		->to( controller => 'Controllers::API::Clients', action => 'show' );
-
-	$api->post( '/clients' )
-		->to( controller => 'Controllers::API::Clients', action => 'create' );
-
-	$api->put( '/clients/:id' )
-		->to( controller => 'Controllers::API::Clients', action => 'update' );
-
-	$api->delete( '/clients/:id' )
-		->to( controller => 'Controllers::API::Clients', action => 'delete' );
+	$api->get( '/clients' )->to( 'Controllers::API::Clients#list' );
+	$api->get( '/clients/:id' )->to( 'Controllers::API::Clients#show' );
+	$api->post( '/clients' )->to( 'Controllers::API::Clients#create' );
+	$api->put( '/clients/:id' )->to( 'Controllers::API::Clients#update' );
+	$api->delete( '/clients/:id' )->to( 'Controllers::API::Clients#delete' );
 }
 
 1;

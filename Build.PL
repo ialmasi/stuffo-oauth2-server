@@ -23,8 +23,10 @@ my $builder = Module::Build->new(
 			'MooseX::AbstractMethod' => undef,
 			'MooseX::ClassAttribute' => undef,
 			'MooseX::Storage' => undef,
+			'Session::Token' => undef,
 			'String::CamelCase' => undef,
 			'Test::MockObject' => undef,
+			'URI' => undef,
 			'UUID::Random' => undef,
 		},
 	);

@@ -2,7 +2,6 @@ package Stuffo::OAuth2::Server::Models::User;
 
 use Moose;
 
-
 has 'email' => (
 	);
 
