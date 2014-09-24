@@ -48,7 +48,7 @@ sub update {
 	my $client = $self->model( 'oauth2.clients' )
 		->find_one( { id => $self->param( 'id' ) } );
 
-	
+	# TODO: Save into the database ...
 
 	return $self->render( json => undef );
 }

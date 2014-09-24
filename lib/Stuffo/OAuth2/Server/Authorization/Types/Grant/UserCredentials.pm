@@ -5,6 +5,7 @@ use Moose;
 extends 'Stuffo::OAuth2::Server::Authorization::AbstractType';
 
 use Stuffo::OAuth2::Server::ModelFactory;
+use Stuffo::OAuth2::Server::ExceptionFactory;
 
 has 'client_secret' => (
 		is => 'ro',
@@ -15,10 +16,10 @@ has 'client_secret' => (
 sub run {
 	my $self = shift();
 
-	my $client = $self->_get_client();
-
-	die( 'Secrets do not match' )
-		unless( $client->secret() eq $self->client_secret() );
+	Stuffo::OAuth2::Server::ExceptionFactory
+		->create( 'bad_request', { message => 'Secrets do not match' } )
+		->throw()
+			unless( $self->_client()->secret() eq $self->client_secret() );
 
 	my $token = Stuffo::OAuth2::Server::ModelFactory->create( 'token', {} );
 

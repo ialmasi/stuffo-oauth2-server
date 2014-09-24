@@ -50,7 +50,7 @@ sub logout {
 
 	# Delete session
 	$self->session( expires => 1 );
-	$self->redirect_to( '/' );
+	$self->redirect_to( $self->param( 'url' ) || '/' );
 }
 
 sub check {

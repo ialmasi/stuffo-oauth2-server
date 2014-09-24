@@ -22,6 +22,7 @@ my $builder = Module::Build->new(
 			'MooseX::AbstractFactory' => undef,
 			'MooseX::AbstractMethod' => undef,
 			'MooseX::ClassAttribute' => undef,
+			'MooseX::Role::Parameterized' => undef,
 			'MooseX::Storage' => undef,
 			'Session::Token' => undef,
 			'String::CamelCase' => undef,

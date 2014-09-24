@@ -5,6 +5,8 @@ use Moose;
 extends 'Stuffo::OAuth2::Server::Authorization::AbstractType';
 
 use Stuffo::OAuth2::Server::ModelFactory;
+use Stuffo::OAuth2::Server::ExceptionFactory;
+
 use Stuffo::OAuth2::Server::Authentication::PluginFactory;
 
 has 'code' => (
@@ -34,8 +36,6 @@ has 'client_secret' => (
 sub run {
 	my $self = shift();
 
-	my $client = $self->_get_client();
-
 	# TODO: Check code in the database...
 
 	# TODO: Retrieve user!
@@ -47,11 +47,15 @@ sub run {
 		unless( defined( $user ) );
 =cut
 
-	die( 'Redirect uri does not match!' )
-		unless( $client->redirect_uri() eq $self->redirect_uri() );
+	Stuffo::OAuth2::Server::ExceptionFactory
+		->create( 'bad_request', { message => 'Redirect uri does not match!' } )
+		->throw()
+			unless( $self->_client()->redirect_uri() eq $self->redirect_uri() );
 
-	die( 'Secret does not match!' )
-		unless( $client->secret() eq $self->client_secret() );
+	Stuffo::OAuth2::Server::ExceptionFactory
+		->create( 'bad_request', { message => 'Secret does not match!' } )
+		->throw()
+			unless( $self->_client()->secret() eq $self->client_secret() );
 
 	my $token = Stuffo::OAuth2::Server::ModelFactory->create( 'token', {} );
 

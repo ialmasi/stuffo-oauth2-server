@@ -10,10 +10,8 @@ has 'message' => (
 		default => 'Exception'
 	);
 
-sub to_string {
-	my $self = shift();
-
-	return $message;
+sub throw {
+	die( shift() );
 }
 
 __PACKAGE__->meta()->make_immutable();

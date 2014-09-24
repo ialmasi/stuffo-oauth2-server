@@ -5,6 +5,8 @@ use Moose;
 extends 'Stuffo::OAuth2::Server::Authorization::AbstractType';
 
 use Stuffo::OAuth2::Server::ModelFactory;
+use Stuffo::OAuth2::Server::ExceptionFactory;
+
 use Stuffo::OAuth2::Server::Authentication::PluginFactory;
 
 has 'username' => (
@@ -22,7 +24,7 @@ has 'password' => (
 sub run {
 	my $self = shift();
 
-	my $client = $self->_get_client();
+	$self->_client();
 
 	# TODO: Figure a way to retrieve this information
 	my $authentication = Stuffo::OAuth2::Server::Authentication::PluginFactory->create( 'dummy', {} );
@@ -34,8 +36,10 @@ sub run {
 			} 
 		);
 
-	die( 'User not found!' )
-		unless( defined( $user ) );
+	Stuffo::OAuth2::Server::ExceptionFactory
+		->create( 'bad_request', { message => 'User not found!' } )
+		->throw()
+			unless( defined( $user ) );
 
 	my $token = Stuffo::OAuth2::Server::ModelFactory->create( 'token',
 			{
