@@ -31,7 +31,7 @@ has '_client' => (
 				->get_database( 'oauth2' )->get_collection( 'clients' )
 				->find_one( { id => $self->client_id() } );
 
-			die( Stuffo::OAuth2::Server::ExceptionFactory->create( 'bad_request', { message => 'Client not found!' } ) )
+			Stuffo::OAuth2::Server::ExceptionFactory->create( 'bad_request', { message => 'Client not found!' } )->throw()
 				unless( defined( $data ) );
 
 			return Stuffo::OAuth2::Server::Models::Client->unpack( $data );
