@@ -28,7 +28,7 @@ my $builder = Module::Build->new(
 			'String::CamelCase' => undef,
 			'Test::MockObject' => undef,
 			'Test::More' => undef,
-			'Test::POD' => undef,
+			'Test::Pod' => undef,
 			'URI' => undef,
 			'UUID::Random' => undef,
 		},
