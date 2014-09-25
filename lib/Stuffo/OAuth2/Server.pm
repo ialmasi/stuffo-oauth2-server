@@ -21,11 +21,7 @@ sub startup {
 	$self->renderer()->paths()->[0] = $self->home()->rel_dir( 'templates' );
 
 	# --- Plugins
-	my $config = $self->plugin( 'JSONConfig', 
-			{ 
-				file => CONFIG_JSON_PATH 
-			} 
-		);
+	my $config = $self->plugin( 'JSONConfig', { file => CONFIG_JSON_PATH } );
 
 	$self->plugin( 'REST' => { prefix => 'api' } );
 
@@ -59,16 +55,6 @@ sub startup {
 	# -- API routes
 	$self->routes()
 		->rest_routes( name => 'client', controller => 'Controllers::API::Clients', methods => 'crudl' );
-
-=begin
-	my $api = $self->routes()->any( '/api' );
-
-	$api->get( '/clients' )->to( 'Controllers::API::Clients#list' );
-	$api->get( '/clients/:id' )->to( 'Controllers::API::Clients#show' );
-	$api->post( '/clients' )->to( 'Controllers::API::Clients#create' );
-	$api->put( '/clients/:id' )->to( 'Controllers::API::Clients#update' );
-	$api->delete( '/clients/:id' )->to( 'Controllers::API::Clients#delete' );
-=cut
 }
 
 1;
