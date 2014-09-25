@@ -18,6 +18,7 @@ my $builder = Module::Build->new(
 			'File::ShareDir' => undef,
 			'Mojolicious' => undef,
 			'Mojolicious::Plugin::Mongodb' => undef,
+			'Mojolicious::Plugin::REST' => undef,
 			'Moose' => undef,
 			'MooseX::AbstractFactory' => undef,
 			'MooseX::AbstractMethod' => undef,

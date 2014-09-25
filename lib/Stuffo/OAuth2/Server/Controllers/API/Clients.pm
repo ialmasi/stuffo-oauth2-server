@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use Stuffo::OAuth2::Server::ModelFactory;
 
-sub list {
+sub list_client {
 	my $self = shift();
 
 	my @clients = $self->model( 'oauth2.clients' )
@@ -14,7 +14,7 @@ sub list {
 	return $self->render( json => \@clients );
 }
 
-sub show {
+sub read_client {
 	my $self = shift();
 
 	my $client = $self->model( 'oauth2.clients' )
@@ -25,7 +25,7 @@ sub show {
 		$self->render_not_found();
 }
 
-sub create {
+sub create_client {
 	my $self = shift();
 
 	my $params = $self->req()->json();
@@ -42,7 +42,7 @@ sub create {
 	return $self->render( json => { id => $id } );
 }
 
-sub update {
+sub update_client {
 	my $self = shift();
 
 	my $client = $self->model( 'oauth2.clients' )
@@ -53,7 +53,7 @@ sub update {
 	return $self->render( json => undef );
 }
 
-sub delete {
+sub delete_client {
 	my $self = shift();
 
 	$self->model( 'oauth2.clients' )
