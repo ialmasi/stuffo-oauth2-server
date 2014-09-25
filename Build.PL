@@ -27,6 +27,8 @@ my $builder = Module::Build->new(
 			'Session::Token' => undef,
 			'String::CamelCase' => undef,
 			'Test::MockObject' => undef,
+			'Test::More' => undef,
+			'Test::POD' => undef,
 			'URI' => undef,
 			'UUID::Random' => undef,
 		},
