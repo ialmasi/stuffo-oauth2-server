@@ -9,7 +9,7 @@ use Config::JSON;
 
 use Stuffo::OAuth2::Server::Constants qw(CONFIG_JSON_PATH);
 
-our @EXPORT = (
+our @EXPORT = qw(
         $config
     );
 

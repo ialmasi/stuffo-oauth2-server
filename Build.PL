@@ -15,6 +15,7 @@ my $builder = Module::Build->new(
 
 		# NOTE: Keep this list sorted!
 		requires => {
+			'Config::JSON' => undef,
 			'File::ShareDir' => undef,
 			'Mojolicious' => undef,
 			'Mojolicious::Plugin::Mongodb' => undef,
@@ -25,6 +26,7 @@ my $builder = Module::Build->new(
 			'MooseX::ClassAttribute' => undef,
 			'MooseX::Role::Parameterized' => undef,
 			'MooseX::Storage' => undef,
+			'Package::Constants' => undef,
 			'Session::Token' => undef,
 			'String::CamelCase' => undef,
 			'Test::MockObject' => undef,

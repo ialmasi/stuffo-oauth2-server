@@ -5,7 +5,7 @@ use Mojo::Log;
 
 use File::ShareDir;
 
-use Stuffo::OAuth2::Server::Constants qw(CONFIG_JSON_PATH);
+use Stuffo::OAuth2::Server::Config;
 
 our $VERSION = '1.0';
 
@@ -19,14 +19,12 @@ sub startup {
 	$self->renderer()->paths()->[0] = $self->home()->rel_dir( 'templates' );
 
 	# --- Plugins
-	my $config = $self->plugin( 'JSONConfig', { file => CONFIG_JSON_PATH } );
-
 	$self->plugin( 'REST' => { prefix => 'api' } );
 
 	$self->plugin( 'Mongodb',
 			{
 				helper => 'mongo',
-				%{ $config->{mongodb} },
+				%{ $config->get('mongodb') },
 			}
 		);
 

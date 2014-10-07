@@ -4,6 +4,8 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use Stuffo::OAuth2::Server::Authentication::PluginFactory;
 
+use Stuffo::OAuth2::Server::Config;
+
 sub index {
 	my $self = shift();
 
@@ -28,8 +30,8 @@ sub login {
 
 	# Instantiate the authentication plugin ...
 	my $plugin = Stuffo::OAuth2::Server::Authentication::PluginFactory->create(
-			$self->config()->{authentication}->{name},
-			$self->config()->{authentication}->{args} || {},
+			$config->get('authentication/name'),
+			$config->get('authentication/args') || {},
 		);
 
 	# Check the credentials ...
