@@ -5,9 +5,7 @@ use Mojo::Log;
 
 use File::ShareDir;
 
-use constant {
-	CONFIG_JSON_PATH => '/etc/default/stuffo-oauth2-server.json',
-};
+use Stuffo::OAuth2::Server::Constants qw(CONFIG_JSON_PATH);
 
 our $VERSION = '1.0';
 
@@ -25,7 +23,7 @@ sub startup {
 
 	$self->plugin( 'REST' => { prefix => 'api' } );
 
-	$self->plugin( 'Mongodb', 
+	$self->plugin( 'Mongodb',
 			{
 				helper => 'mongo',
 				%{ $config->{mongodb} },
@@ -41,7 +39,7 @@ sub startup {
 
 	# --- OAuth Routes
 	my $oauth = $self->routes()->any( '/oauth' );
-	
+
 	$oauth->bridge( '/authorize' )->to( 'Controllers::Authentication#check' )
 		->get( '/' )->to( 'Controllers::Authorization#authorize' );
 
