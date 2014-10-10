@@ -7,5 +7,5 @@ stuffo-oauth2-server
 The app supports an in-memory "mongo" database. To use it just run: 
 
 <pre>
-    STUFFO_OAUTH2_SERVER_TESTING=1 morbo stuffo-oauth2-server/bin/stuffo-oauth2-server.pl
+    STUFFO_OAUTH2_SERVER_TEST=1 morbo stuffo-oauth2-server/bin/stuffo-oauth2-server.pl
 </pre>

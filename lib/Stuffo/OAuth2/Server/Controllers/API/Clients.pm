@@ -21,9 +21,9 @@ sub read_client {
 		->storage('clients')
 		->select_one({id => $self->param('clientId')});
 
-	return ( defined( $client ) ) ?
-		$self->render( json => $client ) :
-		$self->render_not_found();
+	return ( defined( $client ) ) 
+		? $self->render( json => $client ) 
+		: $self->render_not_found();
 }
 
 sub create_client {
@@ -37,11 +37,11 @@ sub create_client {
 			}
 		);
 
-	my $id = $self->storage_engine
+	$self->storage_engine
 		->storage('clients')
 		->insert($client->pack());
 
-	return $self->render( json => { clientId => $id } );
+	return $self->render( json => { id => $client->id } );
 }
 
 sub update_client {
@@ -55,7 +55,7 @@ sub update_client {
 	my $client = Stuffo::OAuth2::Server::ModelFactory->create( 'client',
 			{
 				id => $self->param( 'clientId' ),
-				map { $_ => $params->{ $_ } || $client_db->{ $_ } } qw( name url description redirect_uri )
+				map { $_ => $params->{ $_ } || $client_db->{ $_ } } qw( name url description redirect_uri secret )
 			}
 		);
 
@@ -63,7 +63,7 @@ sub update_client {
 		->storage('clients')
 		->update({id => $self->param( 'clientId' )}, { '$set' => $client->pack()});
 
-	return $self->render( json => {} );
+	return $self->render( json => { id => $self->param( 'clientId' ) } );
 }
 
 sub delete_client {
@@ -73,7 +73,7 @@ sub delete_client {
 		->storage('clients')
 		->delete( { id => $self->param( 'clientId' ) } );
 
-	return $self->render( json => {} );
+	return $self->render( json => { id => $self->param( 'clientId' ) } );
 }
 
 1;
