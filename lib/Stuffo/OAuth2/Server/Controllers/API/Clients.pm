@@ -7,18 +7,19 @@ use Stuffo::OAuth2::Server::ModelFactory;
 sub list_client {
 	my $self = shift();
 
-	my @clients = $self->model( 'oauth2.clients' )
-		->find()
-		->all();
+	my $clients = $self->storage_engine
+		->storage('clients')
+		->select();
 
-	return $self->render( json => \@clients );
+	return $self->render( json => $clients );
 }
 
 sub read_client {
 	my $self = shift();
 
-	my $client = $self->model( 'oauth2.clients' )
-		->find_one( { id => $self->param( 'id' ) } );
+	my $client = $self->storage_engine
+		->storage('clients')
+		->select_one({id => $self->param('clientId')});
 
 	return ( defined( $client ) ) ?
 		$self->render( json => $client ) :
@@ -36,28 +37,41 @@ sub create_client {
 			}
 		);
 
-	my $id = $self->model( 'oauth2.clients' )
-		->insert( $client->pack() );
+	my $id = $self->storage_engine
+		->storage('clients')
+		->insert($client->pack());
 
-	return $self->render( json => { id => $id } );
+	return $self->render( json => { clientId => $id } );
 }
 
 sub update_client {
 	my $self = shift();
 
-	my $client = $self->model( 'oauth2.clients' )
-		->find_one( { id => $self->param( 'id' ) } );
+	my $client_db = $self->storage_engine
+		->storage('clients')
+		->select_one( { id => $self->param( 'clientId' ) } );
 
-	# TODO: Save into the database ...
+	my $params = $self->req()->json();
+	my $client = Stuffo::OAuth2::Server::ModelFactory->create( 'client',
+			{
+				id => $self->param( 'clientId' ),
+				map { $_ => $params->{ $_ } || $client_db->{ $_ } } qw( name url description redirect_uri )
+			}
+		);
 
-	return $self->render( json => undef );
+	$self->storage_engine
+		->storage('clients')
+		->update({id => $self->param( 'clientId' )}, { '$set' => $client->pack()});
+
+	return $self->render( json => {} );
 }
 
 sub delete_client {
 	my $self = shift();
 
-	$self->model( 'oauth2.clients' )
-		->remove( { id => $self->param( 'id' ) }, { just_one => 1 } );
+	$self->storage_engine
+		->storage('clients')
+		->delete( { id => $self->param( 'clientId' ) } );
 
 	return $self->render( json => {} );
 }

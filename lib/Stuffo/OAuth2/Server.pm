@@ -6,6 +6,7 @@ use Mojo::Log;
 use File::ShareDir;
 
 use Stuffo::OAuth2::Server::Config;
+use Stuffo::OAuth2::Server::StorageEngine;
 
 our $VERSION = '1.0';
 
@@ -21,12 +22,7 @@ sub startup {
 	# --- Plugins
 	$self->plugin( 'REST' => { prefix => 'api' } );
 
-	$self->plugin( 'Mongodb',
-			{
-				helper => 'mongo',
-				%{ $config->get('mongodb') },
-			}
-		);
+	$self->plugin( 'Mojolicious::Plugins::StuffoStorageEngine' );
 
 	# --- Authentication
 	my $authentication = $self->routes()->any( '/' );

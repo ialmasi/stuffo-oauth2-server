@@ -4,7 +4,7 @@ var clients = angular.module( 'stuffo.oauth2.server.clients',
 
 clients.factory( 'ClientService', 
 		function( $resource ) {
-			return $resource( '/api/clients/:id', { id: '@id' } );
+			return $resource( '/api/clients/:id', { id: '@id' }, { 'update': { method:'PUT' } } );
 		}
 	);
 

@@ -10,10 +10,7 @@ sub authorize {
 	eval {
 		my $result = Stuffo::OAuth2::Server::Authorization::AbstractTypeFactory->create(
 				sprintf( 'response.%s', $self->param( 'response_type' ) ),
-				{ 
-					storage => $self->mongodb_connection(),
-					%{ $self->req()->params()->to_hash() }
-				},
+				$self->req()->params()->to_hash() 
 			)->run();
 
 		return $self->redirect_to( $result )
@@ -30,11 +27,8 @@ sub token {
 
 	eval {
 		my $result = Stuffo::OAuth2::Server::Authorization::AbstractTypeFactory->create(
-				sprintf( 'grant.%s', $self->param( 'grant_type' ) ),
-				{ 
-					storage => $self->mongodb_connection(),
-					%{ $self->req()->params()->to_hash() }
-				},
+				sprintf( 'grant.%s', $self->param( 'grant_type' ) ), 
+				$self->req()->params()->to_hash() 
 			)->run();
 
 		return $self->render( json => $result->pack() );
